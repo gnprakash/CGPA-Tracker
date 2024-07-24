@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {% load static %}
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(230, 230, 230);
+        }
+        .container {
+            width: 70%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Four columns, each 1 fraction of the container's width */
+            grid-gap: 10px; /* Optional spacing between divs */
+        }
+
+        .flips {
+            width: 270px;
+            font-size: 17px;
+            height: 400px;
+            perspective: 1000px; /* Add 3D effect */
+            margin-top: 30px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Center text */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+        }
+
+        .flips-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d; /* Maintain 3D effect */
+        }
+
+        .flipped .flips-inner {
+            transform: rotateY(180deg); /* Flip the card */
+        }
+
+        .flips-front, .flips-back {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            position: absolute;
+            backface-visibility: hidden; /* Hide the back of the card */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .flips-front {
+            color: #0D6EFD;
+            font-size: 25px;
+            font-family:'Times New Roman', Times, serif ;
+            background-color: rgb(245, 244, 244);
+        }
+
+        .flips-back {
+            background-color: rgb(245, 244, 244);
+            transform: rotateY(180deg); /* Initially hide the back of the card */
+        }
+
+    </style>
+</head>
+<body>
+    <h1 style="margin-top: 50px;">CGPA Manager</h1>
+    <h3 style="color:black">Welcome, {{ user_name }}!</h3>
+
+    <!-- Semester Cards -->
+    <div class="container">
+        <!-- Replace this with Django template logic to generate semester cards dynamically -->
+        {% for semester in semesters %}
+        <div class="flips" onclick="flipCard(this)">
+            <div class="flips-inner">
+                <div class="flips-front">
+                    <p>Semester {{ semester.number }}</p>
+                </div>
+                <div class="flips-back">
+                                  
+                    {% if semester1_data.semester1_data and semester.number == semester1_data.number %}
+                    <div>
+                    <p>Semester GPA: {{ semester1_data.semester1_data.gpa }}</p>
+                    <table>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                        </tr>
+                        <tr>
+                            <td>Mathemathics-1</td>
+                            <td>{{ semester1_data.semester1_data.subject1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Physics</td>
+                            <td>{{ semester1_data.semester1_data.subject2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Chemistry</td>
+                            <td>{{ semester1_data.semester1_data.subject3 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Thermodynamics</td>
+                            <td>{{ semester1_data.semester1_data.subject4 }}</td>
+                        </tr>
+                        <tr>
+                            <td>EEE/ECE</td>
+                            <td>{{ semester1_data.semester1_data.subject5 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Programming</td>
+                            <td>{{ semester1_data.semester1_data.subject6 }}</td>
+                        </tr>
+                        <tr>
+                            <td>PHY-LAB</td>
+                            <td>{{ semester1_data.semester1_data.subject7 }}</td>
+                        </tr>
+                        <tr>
+                            <td>CP-LAB</td>
+                            <td>{{ semester1_data.semester1_data.subject8 }}</td>
+                        </tr>
+                        <tr>
+                            <td>CHEM-LAB</td>
+                            <td>{{ semester1_data.semester1_data.subject9 }}</td>
+                        </tr>
+
+                    </table>
+                </div>
+                    {% elif semester2_data.semester2_data and semester.number == semester2_data.number %}
+                    <p>Semester GPA: {{ semester2_data.semester2_data.gpa }}</p>
+                    <table>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                        </tr>
+                        <tr>
+                            <td>Mathemathics-3</td>
+                            <td>{{ semester2_data.semester2_data.subject1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Material Science</td>
+                            <td>{{ semester2_data.semester2_data.subject2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Environmental Science</td>
+                            <td>{{ semester2_data.semester2_data.subject3 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Civil/Mechanical Engineering</td>
+                            <td>{{ semester2_data.semester2_data.subject4 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Engineering Mechanics</td>
+                            <td>{{ semester2_data.semester2_data.subject5 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Communicative English</td>
+                            <td>{{ semester2_data.semester2_data.subject6 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Physics lab</td>
+                            <td>{{ semester2_data.semester2_data.subject7 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Chemistry lab</td>
+                            <td>{{ semester2_data.semester2_data.subject8 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Workshop Practice</td>
+                            <td>{{ semester2_data.semester2_data.subject9 }}</td>
+                        </tr>
+                    </table>
+                    {% elif semester3_data.semester3_data and semester.number == semester3_data.number %}
+                    <p>Semester GPA: {{ semester3_data.semester3_data.gpa }}</p>
+                    <table>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                        </tr>
+                        <tr>
+                            <td>Mathemathics-2</td>
+                            <td>{{ semester3_data.semester3_data.subject1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Material Science</td>
+                            <td>{{ semester3_data.semester3_data.subject2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Environmental Science</td>
+                            <td>{{ semester3_data.semester3_data.subject3 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Civil/Mechanical Engineering</td>
+                            <td>{{ semester3_data.semester3_data.subject4 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Engineering Mechanics</td>
+                            <td>{{ semester3_data.semester3_data.subject5 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Communicative English</td>
+                            <td>{{ semester3_data.semester3_data.subject6 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Physics lab</td>
+                            <td>{{ semester3_data.semester3_data.subject7 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Chemistry lab</td>
+                            <td>{{ semester3_data.semester3_data.subject8 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Workshop Practice</td>
+                            <td>{{ semester3_data.semester3_data.subject9 }}</td>
+                        </tr>
+                    </table>                   
+
+                    {% else %}
+                    <div>
+                    <p style="color: red;font-size: 15px;font-weight: bold;">No Grades Entered!</p>
+                    <a href="{% url 'enter_grades' semester.number %}" class="btn btn-primary btn-lg">Enter Grades</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <script>
+        function flipCard(element) {
+            element.classList.toggle('flipped'); // Toggle the 'flipped' class on click
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
